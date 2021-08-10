@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from 'react';
+import Login from './componentes/Login';
+import Perfil from './componentes/Perfil';
+import Registrarse from './componentes/Registrarse';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom';
 function App() {
+
+const[conectado, setConectado] = useState(false);
+const acceder = (estado)=>{
+  setConectado(estado)
+}
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+    conectado ? <Perfil /> : <Login acceder={acceder} />
+    <Switch>
+    <Route  path="/" exact>
+        <Login />
+      </Route>
+      <Route path="/registrarse" exact>
+        <Registrarse />
+      </Route>
+    </Switch>
+    </Router>
   );
 }
 
